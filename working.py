@@ -31,12 +31,12 @@ def process_part(**kwargs):
     if os.path.exists(os.path.join(directory, "working.yaml")):
         print(f"Deleting working.yaml from {directory}")
         os.remove(os.path.join(directory, "working.yaml"))
-        #delay 1 second
-        #time.sleep(1)
+    #remove json too
+    if os.path.exists(os.path.join(directory, "working.json")):
+        print(f"Deleting working.json from {directory}")
+        os.remove(os.path.join(directory, "working.json"))
     else:
         print(f"working.yaml does not exist in {directory}")
-        #delay 1 second
-        #time.sleep(1)
 
 if __name__ == '__main__':
     #folder is the path it was launched from
