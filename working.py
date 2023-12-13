@@ -1,4 +1,5 @@
 import os
+import time
 # An oomp utility to:
 # delete all the working,yaml files to cleanse before rebuilding from base.yaml 
 # 
@@ -14,8 +15,8 @@ def recursive_through_parts(**kwargs):
     for item in os.listdir(folder):
         item_absolute = os.path.join(folder, item)
         if os.path.isdir(item_absolute):
-            #if base.yaml exists in the folder
-            if os.path.exists(os.path.join(item_absolute, "base.yaml")):
+            #if base.yaml exists in the folder or working,yaml exists in the folder
+            if os.path.exists(os.path.join(item_absolute, "base.yaml") or os.path.join(item_absolute, "working.yaml")):
                 kwargs["directory"] = item_absolute
                 process_part(**kwargs)
 
@@ -25,10 +26,14 @@ def process_part(**kwargs):
     print("Processing: {}".format(directory))
     #if working.yaml exists in directory delete it
     if os.path.exists(os.path.join(directory, "working.yaml")):
-        print("Deleting working.yaml")
+        print(f"Deleting working.yaml from {directory}")
         os.remove(os.path.join(directory, "working.yaml"))
+        #delay 1 second
+        #time.sleep(1)
     else:
-        print("No working.yaml file to delete")
+        print(f"working.yaml does not exist in {directory}")
+        #delay 1 second
+        #time.sleep(1)
 
 if __name__ == '__main__':
     #folder is the path it was launched from
@@ -37,5 +42,6 @@ if __name__ == '__main__':
     folder = os.path.dirname(__file__)
     #folder = "C:/gh/oomlout_oomp_builder/parts"
     #folder = "C:/gh/oomlout_oomp_part_generation_version_1/parts"
+    #folder = "C:/gh/oomlout-organization/oomlout_oomp_current_version/parts"
     kwargs["folder"] = folder
     main(**kwargs)
