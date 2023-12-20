@@ -13,15 +13,17 @@ def recursive_through_parts(**kwargs):
     folder = kwargs.get("folder", os.path.dirname(__file__))
     kwargs["folder"] = folder
     folders = os.listdir(folder)
+    filter = kwargs.get("filter", ~"")
     for item in folders:
-        item_absolute = os.path.join(folder, item)
-        if os.path.isdir(item_absolute):
-            #if base.yaml exists in the folder or working,yaml exists in the folder
-            file_yaml_base = os.path.join(item_absolute, "base.yaml")
-            file_yaml_working = os.path.join(item_absolute, "working.yaml")
-            if os.path.exists(file_yaml_base) or os.path.exists(file_yaml_working):
-                kwargs["directory"] = item_absolute
-                process_part(**kwargs)
+        if filter in folder:
+            item_absolute = os.path.join(folder, item)
+            if os.path.isdir(item_absolute):
+                #if base.yaml exists in the folder or working,yaml exists in the folder
+                file_yaml_base = os.path.join(item_absolute, "base.yaml")
+                file_yaml_working = os.path.join(item_absolute, "working.yaml")
+                if os.path.exists(file_yaml_base) or os.path.exists(file_yaml_working):
+                    kwargs["directory"] = item_absolute
+                    process_part(**kwargs)
 
 def process_part(**kwargs):
     directory = kwargs.get("directory", os.getcwd())    
