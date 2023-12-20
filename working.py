@@ -15,7 +15,7 @@ def recursive_through_parts(**kwargs):
     folders = os.listdir(folder)
     filter = kwargs.get("filter", "")
     for item in folders:
-        if filter in folder:
+        if filter in item:
             item_absolute = os.path.join(folder, item)
             if os.path.isdir(item_absolute):
                 #if base.yaml exists in the folder or working,yaml exists in the folder
