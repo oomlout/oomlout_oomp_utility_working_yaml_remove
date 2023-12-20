@@ -13,7 +13,7 @@ def recursive_through_parts(**kwargs):
     folder = kwargs.get("folder", os.path.dirname(__file__))
     kwargs["folder"] = folder
     folders = os.listdir(folder)
-    filter = kwargs.get("filter", ~"")
+    filter = kwargs.get("filter", "")
     for item in folders:
         if filter in folder:
             item_absolute = os.path.join(folder, item)
